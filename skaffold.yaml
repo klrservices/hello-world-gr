@@ -1,0 +1,9 @@
+apiVersion: skaffold/v1alpha2
+kind: Config
+build:
+  artifacts:
+  - imageName: hello-world-gr
+deploy:
+  kubectl:
+    manifests:
+    - hello-world-gr-k8s.yml

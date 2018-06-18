@@ -1,0 +1,40 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: hello-world-gr
+  labels:
+    run: rest-hello-world-gr
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        run: rest-hello-world-gr
+    spec:
+      containers:
+      - image: hello-world-gr
+        imagePullPolicy: Never
+        name: rest-hello-world-gr
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+      imagePullSecrets:
+      - name: wrelease
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rest-hello-world-gr-svc
+spec:
+  selector:
+    run: rest-hello-world-gr
+  ports:
+  - port: 8088
+    targetPort: 8080
+  type: LoadBalancer
