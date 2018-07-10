@@ -9,6 +9,7 @@ import spock.lang.AutoCleanup
 import spock.lang.Shared
 import spock.lang.Specification
 import groovy.json.*
+import spock.lang.Unroll
 
 class DemoControllerSpec extends Specification {
 
@@ -61,5 +62,17 @@ class DemoControllerSpec extends Specification {
         sampleBean.someInt == 2
         and: 'string property set to NULL'
         sampleBean.someString == 'NULL'
+    }
+
+    @Unroll
+    def "test concat of '#param1' and '#param2' equals '#result'"() {
+        expect: "result is a concatenation of parameters"
+        client.toBlocking().retrieve("/demo/concat/${param1}/${param2}") == result
+
+        where:
+        param1  |   param2  |   result
+        'a'     |   'b'     |   'ab'
+        'x'     |   'y'     |   'xy'
+        'ABC'   |   'xyz'   |   'ABCxyz'
     }
 }

@@ -28,4 +28,9 @@ class DemoController implements Demo{
     SampleBean sample(String someString, int someInt) {
         return new SampleBean(someString,someInt)
     }
+
+    @Override @Get("/concat/{param1}/{param2}")
+    String concat(String param1, String param2) {
+        return "${param1}${param2}"
+    }
 }

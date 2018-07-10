@@ -16,4 +16,7 @@ public interface Demo {
 
     @Get("/sample{?someString,someInt}")
     SampleBean sample(String someString, int someInt)
+
+    @Get("/concat/{param1}/{param2}")
+    String concat(String param1, String parame)
 }
