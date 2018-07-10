@@ -3,6 +3,13 @@ micronaut:
         port: 8080
     application:
         name: hello-world-gr
+endpoints:
+    beans:
+        enabled: true
+        sensitive: false
+    info:
+        enabled: true
+        sensitive: false
 dataSource:
     pooled: true
     dbCreate: create-drop

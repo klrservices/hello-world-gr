@@ -1,0 +1,16 @@
+  apiVersion: extensions/v1beta1
+  kind: Ingress
+  metadata:
+    name: hello-world-gr-ingress
+    annotations:
+      kubernetes.io/ingress.class: istio
+  spec:
+    tls:
+    - secretName: ingress-secret
+    rules:
+    - http:
+        paths:
+        - path: /hello
+          backend:
+            serviceName: rest-hello-world-gr-svc
+            servicePort: 8088

@@ -28,6 +28,12 @@ repositories {
     maven { url "https://jcenter.bintray.com" }
 }
 
+distributions {
+    main {
+        baseName = 'hello-world-gr'
+    }
+}
+
 dependencyManagement {
     imports {
         mavenBom 'io.micronaut:bom:1.0.0.M1'
@@ -41,6 +47,7 @@ dependencies {
     compile "io.micronaut:runtime-groovy"
     compile "io.micronaut:inject"
     compile "io.micronaut:runtime"
+    compile "io.micronaut:management"
 
     compile "io.micronaut.configuration:hibernate-gorm"
 
@@ -58,6 +65,9 @@ dependencies {
     testCompile("org.spockframework:spock-core:1.1-groovy-2.4") {
         exclude group: "org.codehaus.groovy", module: "groovy-all"
     }
+    // https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-json
+    testCompile group: 'org.codehaus.groovy', name: 'groovy-json', version: '2.5.0'
+
     testCompile "junit:junit:4.12"
     testCompile "io.micronaut:inject-java"
 }

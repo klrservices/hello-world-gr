@@ -6,20 +6,26 @@ import io.micronaut.http.HttpStatus
 
 
 @Controller("/demo")
-class DemoController {
+class DemoController implements Demo{
 
-    @Get("/")
+
+    @Override @Get("/")
     String index() {
-        return "Hello world"
+        return "Hello world!"
     }
 
-    @Get("/to-upper/{param}")
+    @Override @Get("/to-upper/{param}")
     String toUpper(String param) {
         return param.toUpperCase()
     }
 
-    @Get("/current-date")
+    @Override @Get("/current-date")
     String currentDate() {
         return new Date().toString()
+    }
+
+    @Override @Get("/sample{?someString,someInt}")
+    SampleBean sample(String someString, int someInt) {
+        return new SampleBean(someString,someInt)
     }
 }

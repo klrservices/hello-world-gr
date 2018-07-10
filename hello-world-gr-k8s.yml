@@ -17,12 +17,22 @@ spec:
         run: rest-hello-world-gr
     spec:
       containers:
-      - image: hello-world-gr
+      - image: hello-world-gr:latest
         imagePullPolicy: Never
         name: rest-hello-world-gr
         ports:
         - containerPort: 8080
           protocol: TCP
+#        livenessProbe:
+#          httpGet:
+#            port: 8080
+#            path: /
+#          exec:
+#            command:
+#        readinessProbe:
+#          httpGet:
+#            port: 8080
+#            path: /actuator/health
       imagePullSecrets:
       - name: wrelease
       restartPolicy: Always
@@ -38,3 +48,23 @@ spec:
   - port: 8088
     targetPort: 8080
   type: LoadBalancer
+---
+
+#apiVersion: extensions/v1beta1
+#kind: Ingress
+#metadata:
+#  name: rest-hello-world-gr-ing
+#  annotations:
+#    kubernetes.io/ingress.class: 'nginx'
+#    ingress.kubernetes.io/add-base-url: 'true'
+#    ingress.kubernetes.io/rewrite-target: /
+#spec:
+#  tls:
+#  - secretName: tls-secret
+#  rules:
+#  - http:
+#      paths:
+#      - path: /
+#        backend:
+#          serviceName: rest-hello-world-gr-svc
+#          servicePort: 8088
